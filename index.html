@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOIRE | Premium Luxury Fragrances</title>
+    <meta name="description"
+        content="Discover NOIRE's luxury fragrance collection. Office Men, White Oud, and Azure. Premium, cinematic perfumes for the modern connoisseur.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo"><img src="images/NORIE LOGO.png" alt="NOIRE" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#featured">Featured</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartToggle">
+                    Cart (<span id="cartCount">0</span>)
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items injected via JS -->
+            <div class="empty-cart-msg">Your cart is empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalValue">Rs. 0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Product Detail Modals Container -->
+    <div id="modalsContainer">
+        <!-- Modals injected via JS -->
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content checkout-modal-content">
+            <button class="modal-close" id="closeCheckout">&times;</button>
+            <div class="checkout-container">
+                <h2 class="checkout-title">Complete Your Order</h2>
+
+                <div class="checkout-grid">
+                    <!-- Order Summary Column -->
+                    <div class="checkout-summary">
+                        <h3>Order Summary</h3>
+                        <div id="checkoutItemsList" class="checkout-items-list">
+                            <!-- Injected via JS -->
+                        </div>
+                        <div class="checkout-total-box">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="checkoutSubtotal">Rs. 0</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span style="color: var(--color-gold);">FREE</span>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Grand Total</span>
+                                <span id="checkoutGrandTotal">Rs. 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping & Payment Form Column -->
+                    <div class="checkout-form-container">
+                        <form id="checkoutForm">
+                            <h3>Shipping Information</h3>
+                            <div class="form-group">
+                                <label for="custName">Full Name <span class="required-star">*</span></label>
+                                <input type="text" id="custName" name="custName" placeholder="e.g. Alexander Vance"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="custEmail">Email Address <span class="required-star">*</span></label>
+                                <input type="email" id="custEmail" name="custEmail"
+                                    placeholder="e.g. alexander@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="custPhone">Phone Number <span class="required-star">*</span></label>
+                                <input type="tel" id="custPhone" name="custPhone" placeholder="e.g. +92 300 1234567"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="custAddress">Complete Shipping Address <span
+                                        class="required-star">*</span></label>
+                                <textarea id="custAddress" name="custAddress"
+                                    placeholder="House / Apartment #, Street, Area, City, Postal Code" rows="3"
+                                    required></textarea>
+                            </div>
+
+                            <h3>Payment Method</h3>
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="cod" checked>
+                                    <span>Cash on Delivery (COD)</span>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="card">
+                                    <span>Online Transfer / Card</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="cta-btn primary-btn checkout-submit-btn">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content success-modal-content">
+            <button class="modal-close" id="closeSuccess">&times;</button>
+            <div class="success-container">
+                <div class="success-icon">✓</div>
+                <h2>Order Confirmed</h2>
+                <p class="order-id">Order Reference: <strong id="successOrderId">#NOIRE-00000</strong></p>
+                <p class="success-msg">Thank you for choosing NOIRE. Your luxury fragrance order has been received and
+                    is being prepared for dispatch.</p>
+                <button class="cta-btn primary-btn" id="finishOrderBtn">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <canvas id="heroCanvas"></canvas>
+            <div class="hero-glow hero-glow-1"></div>
+            <div class="hero-glow hero-glow-2"></div>
+            <div class="hero-content fade-in-up">
+                <h1>Embrace the Night</h1>
+                <p>Discover the essence of luxury with our premium fragrance collection.</p>
+                <a href="#featured" class="cta-btn primary-btn">Explore the Collection</a>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured" id="featured">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Featured Essences</h2>
+                <div class="product-grid" id="featuredProducts">
+                    <!-- Products injected via JS to keep data centralized -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About NOIRE -->
+        <section class="about" id="about">
+            <div class="about-container section-container">
+                <div class="about-text fade-in-up">
+                    <h2 class="section-title">The NOIRE Philosophy</h2>
+                    <p>At NOIRE, we believe that a fragrance is more than a scent—it is an extension of your persona, a
+                        silent statement of intent. Born from a desire to redefine luxury, we meticulously blend the
+                        finest ingredients to craft cinematic experiences in a bottle.</p>
+                    <p>Our commitment to elegance, quality, and timeless design ensures that every spritz is a journey
+                        into the extraordinary.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fragrance Collection -->
+        <section class="collection" id="collection">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">The Olfactory Collection</h2>
+                <p class="section-subtitle fade-in-up">The Complete NOIRE Fragrance Trilogy • Pack of 3</p>
+
+                <div class="collection-master-card fade-in-up">
+                    <div class="master-img-container">
+                        <img src="images/pack of 3 (2).png" alt="NOIRE Pack of 3 Luxury Collection"
+                            class="master-collection-img">
+                    </div>
+                    <div class="master-collection-details">
+                        <span class="collection-badge">LIMITED EDITION BUNDLE</span>
+                        <h3>THE NOIRE TRIO COLLECTION</h3>
+                        <p class="master-subtitle">Includes: Office Men + White Oud + Azure (100ml each)</p>
+                        <div class="master-price">Rs. 2,500 <span class="original-price">Rs. 3,000</span></div>
+                        <p class="master-desc">Indulge in the complete NOIRE olfactory experience. Featuring full 100ml
+                            Eau de Parfum bottles of Office Men, White Oud, and Azure presented together in a master
+                            luxury collector bundle.</p>
+
+                        <div class="bundle-includes-list">
+                            <div class="bundle-item-chip">✨ OFFICE MEN — Fresh Woods & Bergamot</div>
+                            <div class="bundle-item-chip">✨ WHITE OUD — Floral Amber & Oud</div>
+                            <div class="bundle-item-chip">✨ AZURE — Aquatic Ocean Horizon</div>
+                        </div>
+
+                        <div class="master-actions">
+                            <button class="cta-btn primary-btn" onclick="addToCart('trio-pack', 1)">Add Trio Pack to
+                                Cart</button>
+                            <button class="cta-btn outline-btn" onclick="openModal('trio-pack')">View Pack
+                                Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why NOIRE -->
+        <section class="why-us" id="why-us">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Why Choose NOIRE</h2>
+                <div class="features-grid">
+                    <div class="feature-box fade-in-up">
+                        <h4>Premium Ingredients</h4>
+                        <p>Sourced globally, our ingredients are chosen for their purity and potency.</p>
+                    </div>
+                    <div class="feature-box fade-in-up" style="transition-delay: 0.1s;">
+                        <h4>Long-lasting Sillage</h4>
+                        <p>Expertly formulated to leave a memorable and lingering trail all day.</p>
+                    </div>
+                    <div class="feature-box fade-in-up" style="transition-delay: 0.2s;">
+                        <h4>Elegant Design</h4>
+                        <p>Minimalist, luxurious packaging that looks as good as the fragrance smells.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials" id="testimonials">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Voices of Elegance</h2>
+                <div class="testimonial-slider fade-in-up">
+                    <div class="testimonial">
+                        <p>"OFFICE MEN has become my daily signature. It's sharp, confident, and lasts through every
+                            meeting."</p>
+                        <span>- James T.</span>
+                    </div>
+                    <div class="testimonial">
+                        <p>"WHITE OUD is beautifully complex. It feels incredibly luxurious without being overwhelming."
+                        </p>
+                        <span>- Sarah M.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq" id="faq">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item fade-in-up">
+                        <div class="faq-question">What is the concentration of your fragrances?</div>
+                        <div class="faq-answer">All NOIRE fragrances are Eau de Parfum (EDP) concentration, ensuring a
+                            long-lasting and robust scent profile.</div>
+                    </div>
+                    <div class="faq-item fade-in-up">
+                        <div class="faq-question">Are your products cruelty-free?</div>
+                        <div class="faq-answer">Yes, we are committed to ethical practices. None of our products or
+                            ingredients are tested on animals.</div>
+                    </div>
+                    <div class="faq-item fade-in-up">
+                        <div class="faq-question">Do you offer international shipping?</div>
+                        <div class="faq-answer">Yes, we ship globally. Shipping costs and times vary depending on the
+                            destination.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact" id="contact">
+            <div class="section-container">
+                <h2 class="section-title fade-in-up">Contact Us</h2>
+                <div class="contact-wrapper">
+                    <form class="contact-form fade-in-up" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="contactName" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="contactEmail" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="contactMessage" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-btn primary-btn">Send Message</button>
+                    </form>
+
+                    <div class="contact-success-box" id="contactSuccessBox">
+                        <button class="contact-close-btn" id="closeContactSuccess">&times;</button>
+                        <div class="pulse-icon">✨</div>
+                        <h3>Thank You!</h3>
+                        <p>Your message has been received. Our luxury fragrance concierge will get in touch with you
+                            shortly.</p>
+                        <button class="cta-btn outline-btn" id="resetContactBtn">Send Another Message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container section-container">
+            <div class="footer-brand">
+                <img src="images/NORIE LOGO.png" alt="NOIRE" class="footer-logo-img">
+                <p>The Essence of Modern Luxury</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#featured">Featured</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NOIRE Luxury Fragrances. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
